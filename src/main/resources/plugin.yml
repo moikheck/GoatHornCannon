@@ -1,0 +1,40 @@
+name: GoatHornCannon
+version: '${project.version}'
+main: moikheck.GoatHornCannon
+api-version: 1.19
+prefix: GoatHornCannon
+authors: [moikheck]
+description: Create a knockback wave by blowing a custom goat horn.
+website: https://msheckman.com/goathorncannon
+
+commands:
+  GoatHornCannon:
+    description: "Gives a goat horn cannon."
+  AdminHornCannon:
+    description: "Gives an admin goat horn cannon."
+
+permissions:
+  goathorncannon.use:
+      description: Allows a player to use the goat horn cannon.
+      default: true
+  goathorncannon.craft:
+      description: Allows a player to craft the goat horn cannon.
+      default: true
+  goathorncannon.command:
+      description: Allows a player to give themselves a goat horn cannon via command.
+      default: op
+  goathorncannon.command.others:
+      description: Allows a player to give others a goat horn cannon via command.
+      default: op
+  goathorncannon.admin.use:
+      description: Allows a player to use the admin goat horn cannon.
+      default: op
+  goathorncannon.admin.craft:
+      description: Allows a player to craft the admin goat horn cannon.
+      default: op
+  goathorncannon.admin.command:
+      description: Allows a player to give themselves an admin goat horn cannon via command.
+      default: op
+  goathorncannon.admin.others:
+      description: Allows a player to give others an admin goat horn cannon via command.
+      default: op

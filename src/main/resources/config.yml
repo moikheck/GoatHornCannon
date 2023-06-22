@@ -1,0 +1,77 @@
+#Config 1.0 for GoatHornCannon plugin by:
+#moikheck
+#Golem_Leader
+#Michael Heckman
+#(All of the above are the same person)
+
+#Understanding the config:
+#There are two types of horns: normal and admin. For every setting, there is an option for both.
+
+#Determines whether permissions are used for the plugin
+#Permission Names: 
+#goathorncannon.use
+#goathorncannon.admin.use
+#goathorncannon.craft
+#goathorncannon.admin.craft
+#goathorncannon.command
+#goathorncannon.admin.command
+#goathorncannon.command.others
+#goathorncannon.admin.others
+use-permissions: true
+admin-use-permissions: true
+
+#Determines whether cannon can damage players
+damage-players: false
+damage-players-admin: false
+
+#Determines whether cannon can damage entities
+damage-entities: false
+damage-entities-admin: false
+
+#Determines how much damage a cannon can do:
+damage-amount: 0
+damage-amount-admin: 0
+
+#Determines the crit rate. Crits do double damage.
+crit-rate: 10
+crit-rate-admin: 20
+
+#Highlights players affected by the horn (spectral effect):
+highlight-players: false
+highlight-players-admin: true
+
+#Highlights entities affected by the horn (spectral effect):
+highlight-entities: false
+highlight-entities-admin: true
+
+#Determines the block range forward for the cannon:
+range: 3
+range-admin: 5
+
+#Determines the angle in front of the player for the cannon to fire in:
+angle: 120
+angle-admin: 180
+
+#Determines the max launch distance of the entities in front of the player:
+max-launch-distance: 1
+max-launch-distance-admin: 2
+
+#Determines whether a player can launch themselves by looking at the ground
+launch-owner: true
+launch-owner-admin: true
+
+#Determines the max launch distance of the player launching themselves:
+max-launch-owner: 1
+max-launch-owner-admin: 2
+
+#Sets the cooldown length for the cannon. If 0, uses the default horn cooldown.
+cooldown-length: 3
+cooldown-length-admin: 3
+
+#Sets the CustomModelData tag for the cannon
+custom-model-data: 350000
+custom-model-data-admin: 350001
+
+#Sets the sound file to play when the cannon is used. Must be an OGG file.
+fire-sound: fire.ogg
+fire-sound-admin: fire-admin.ogg
