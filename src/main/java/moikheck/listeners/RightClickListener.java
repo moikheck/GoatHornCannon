@@ -4,10 +4,7 @@ import moikheck.GoatHornCannon;
 import moikheck.functionality.GoatHornCannonUse;
 import moikheck.items.GoatHornAdminCannonItem;
 import moikheck.items.GoatHornCannonItem;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +16,7 @@ import java.util.Objects;
 public class RightClickListener implements Listener {
     private final boolean usesPermissions;
     private final boolean usesAdminPermissions;
-    private GoatHornCannon main;
+    private final GoatHornCannon main;
 
     public RightClickListener(GoatHornCannon plugin) {
         main = plugin;
@@ -31,34 +28,36 @@ public class RightClickListener implements Listener {
     @EventHandler
     public void onPlayerUse(PlayerInteractEvent event) {
         Player p = event.getPlayer();
-        Block b = event.getClickedBlock();
-        boolean isGround = event.getAction().equals(Action.RIGHT_CLICK_BLOCK);
+        int cooldown = p.getCooldown(Material.GOAT_HORN);
+        boolean isGround = event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && p.getLocation().getPitch() >= 45.0;
         boolean isOnGround = !p.getLocation().add(0,-0.1,0).getBlock().getType().isAir();
         boolean isNormalHorn = p.getInventory().getItemInMainHand().equals(GoatHornCannonItem.horn);
         boolean isAdminHorn = p.getInventory().getItemInMainHand().equals(GoatHornAdminCannonItem.horn);
         String type = isNormalHorn ? "normal" : "admin";
-        String direction = isGround ? "ground" : "air";
+        String direction = isGround && isOnGround ? "ground" : "air";
 
-
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !event.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+            return;
+        }
         if (!isNormalHorn && !isAdminHorn) {
             return;
         }
-        if (!isOnGround) {
+        if (cooldown != 0) {
+            event.setCancelled(true);
             return;
         }
-        if (isNormalHorn && !p.hasPermission("goathorncannon.craft") && usesPermissions) {
+        if (isNormalHorn && !p.hasPermission("goathorncannon.use") && usesPermissions) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to use this."));
             return;
         }
-        if (isAdminHorn && !p.hasPermission("goathorncannon.admin.craft") && usesAdminPermissions) {
+        if (isAdminHorn && !p.hasPermission("goathorncannon.admin.use") && usesAdminPermissions) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to use this."));
+            return;
         }
 
-        if (p.getInventory().getItemInMainHand().equals(GoatHornCannonItem.horn)) {
-            GoatHornCannonUse.useCannon(p, type, direction, b, main);
-        }
+        GoatHornCannonUse.useCannon(p, type, direction, main);
 
     }
 

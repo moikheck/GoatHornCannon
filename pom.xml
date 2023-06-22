@@ -6,7 +6,7 @@
 
     <groupId>moikheck.goathorncannon</groupId>
     <artifactId>moikheck.goathorncannon</artifactId>
-    <version>.01</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>GoatHornCannon</name>

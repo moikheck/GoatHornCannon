@@ -3,6 +3,7 @@ package moikheck.commands;
 import moikheck.GoatHornCannon;
 import moikheck.items.GoatHornAdminCannonItem;
 import moikheck.items.GoatHornCannonItem;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,12 +12,12 @@ import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
-public class GiveCannon implements CommandExecutor {
+public class Commands implements CommandExecutor {
     public GoatHornCannon main;
     boolean usesPermissions;
     boolean adminUsesPermissions;
 
-    public GiveCannon(GoatHornCannon main) {
+    public Commands(GoatHornCannon main) {
         this.main = main;
         usesPermissions = Objects.requireNonNull(main.getConfig().getString("use-permissions")).equalsIgnoreCase("true") ;
         adminUsesPermissions = Objects.requireNonNull(main.getConfig().getString("admin-use-permissions")).equalsIgnoreCase("true") ;
@@ -31,7 +32,14 @@ public class GiveCannon implements CommandExecutor {
                 }
                 else {
                     if (sender.hasPermission("goathorncannon.command.others") || !usesPermissions) {
-                        System.out.println("For others (working)");
+                        Player target = Bukkit.getPlayer(args[0]);
+                        if (target == null) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cPlayer not found."));
+                        }
+                        else {
+                            target.getInventory().addItem(GoatHornCannonItem.horn);
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aGave ".concat(target.getName()).concat(" a goat horn cannon.")));
+                        }
                     }
                     else {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to give to other people."));
@@ -52,7 +60,14 @@ public class GiveCannon implements CommandExecutor {
                 }
                 else {
                     if (sender.hasPermission("goathorncannon.admin.others") || !adminUsesPermissions) {
-                        System.out.println("For others (working)");
+                        Player target = Bukkit.getPlayer(args[0]);
+                        if (target == null) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cPlayer not found."));
+                        }
+                        else {
+                            target.getInventory().addItem(GoatHornAdminCannonItem.horn);
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aGave ".concat(target.getName()).concat(" an admin cannon.")));
+                        }
                     }
                     else {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to give to other people."));
@@ -64,6 +79,21 @@ public class GiveCannon implements CommandExecutor {
             }
 
             return true;
+        }
+        else if (label.equalsIgnoreCase("ghc")) {
+            if (args.length == 0 || !args[0].equalsIgnoreCase("reload") ) {
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aGoatHornCommand v1.0 by moikheck"));
+            }
+            else {
+                if (sender.hasPermission("goathorncannon.reload")) {
+                    main.reloadConfig();
+                    usesPermissions = Objects.requireNonNull(main.getConfig().getString("use-permissions")).equalsIgnoreCase("true") ;
+                    adminUsesPermissions = Objects.requireNonNull(main.getConfig().getString("admin-use-permissions")).equalsIgnoreCase("true") ;
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aConfig successfully reloaded!"));
+                } else {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to use this command."));
+                }
+            }
         }
 
         return false;

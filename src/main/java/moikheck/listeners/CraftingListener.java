@@ -27,11 +27,15 @@ public class CraftingListener implements Listener {
     @EventHandler
     public void onItemCraft(CraftItemEvent e) {
         HumanEntity he = e.getWhoClicked();
+        CraftingInventory ci = e.getInventory();
         if (!(he instanceof Player)) {
             return;
         }
         Player p = (Player) he;
         if (!e.getRecipe().getResult().equals(GoatHornCannonItem.horn) && !e.getRecipe().getResult().equals(GoatHornAdminCannonItem.horn)) {
+            return;
+        }
+        if (ci.contains(GoatHornCannonItem.horn) || ci.contains(GoatHornAdminCannonItem.horn)) {
             return;
         }
         if (e.getRecipe().getResult().equals(GoatHornCannonItem.horn) && !p.hasPermission("goathorncannon.craft") && usesPermissions) {
@@ -55,6 +59,9 @@ public class CraftingListener implements Listener {
         }
         Player p = (Player) he;
         if (!Objects.requireNonNull(e.getRecipe()).getResult().equals(GoatHornCannonItem.horn) && !e.getRecipe().getResult().equals(GoatHornAdminCannonItem.horn)) {
+            return;
+        }
+        if (ci.contains(GoatHornCannonItem.horn) || ci.contains(GoatHornAdminCannonItem.horn)) {
             return;
         }
         if (e.getRecipe().getResult().equals(GoatHornCannonItem.horn) && !p.hasPermission("goathorncannon.craft") && usesPermissions) {

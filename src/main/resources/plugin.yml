@@ -12,6 +12,8 @@ commands:
     description: "Gives a goat horn cannon."
   AdminHornCannon:
     description: "Gives an admin goat horn cannon."
+  ghc:
+    description: "Allows checking plugin information or reloading."
 
 permissions:
   goathorncannon.use:
@@ -37,4 +39,7 @@ permissions:
       default: op
   goathorncannon.admin.others:
       description: Allows a player to give others an admin goat horn cannon via command.
+      default: op
+  goathorncannon.reload:
+      description: Allows reloading the config of the plugin.
       default: op

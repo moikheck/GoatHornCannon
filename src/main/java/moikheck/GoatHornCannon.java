@@ -1,12 +1,11 @@
 package moikheck;
 
-import moikheck.commands.GiveCannon;
+import moikheck.commands.Commands;
 import moikheck.items.GoatHornAdminCannonItem;
 import moikheck.items.GoatHornCannonItem;
 import moikheck.listeners.CraftingListener;
 import moikheck.listeners.RightClickListener;
 import moikheck.recipes.GoatHornAdminRecipe;
-import moikheck.recipes.GoatHornClearRecipe;
 import moikheck.recipes.GoatHornRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,7 +34,6 @@ public final class GoatHornCannon extends JavaPlugin {
     private void registerRecipes() {
         new GoatHornRecipe(this);
         new GoatHornAdminRecipe(this);
-        new GoatHornClearRecipe(this);
     }
 
     private void registerItems() {
@@ -44,8 +42,9 @@ public final class GoatHornCannon extends JavaPlugin {
     }
 
     private void registerCmds() {
-        Objects.requireNonNull(this.getCommand("goathorncannon")).setExecutor(new GiveCannon(this));
-        Objects.requireNonNull(this.getCommand("adminhorncannon")).setExecutor(new GiveCannon(this));
+        Objects.requireNonNull(this.getCommand("goathorncannon")).setExecutor(new Commands(this));
+        Objects.requireNonNull(this.getCommand("adminhorncannon")).setExecutor(new Commands(this));
+        Objects.requireNonNull(this.getCommand("ghc")).setExecutor(new Commands(this));
     }
 
     @Override

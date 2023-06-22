@@ -17,6 +17,7 @@
 #goathorncannon.admin.command
 #goathorncannon.command.others
 #goathorncannon.admin.others
+#goathorncannon.reload - will always check permission
 use-permissions: true
 admin-use-permissions: true
 
@@ -28,11 +29,11 @@ damage-players-admin: false
 damage-entities: false
 damage-entities-admin: false
 
-#Determines how much damage a cannon can do:
+#Determines how much damage a cannon can do (in whole numbers):
 damage-amount: 0
 damage-amount-admin: 0
 
-#Determines the crit rate. Crits do double damage.
+#Determines the crit rate in percents. Crits do double damage.
 crit-rate: 10
 crit-rate-admin: 20
 
@@ -48,13 +49,9 @@ highlight-entities-admin: true
 range: 3
 range-admin: 5
 
-#Determines the angle in front of the player for the cannon to fire in:
-angle: 120
-angle-admin: 180
-
 #Determines the max launch distance of the entities in front of the player:
-max-launch-distance: 1
-max-launch-distance-admin: 2
+max-launch-distance: 10
+max-launch-distance-admin: 15
 
 #Determines whether a player can launch themselves by looking at the ground
 launch-owner: true
@@ -64,7 +61,7 @@ launch-owner-admin: true
 max-launch-owner: 1
 max-launch-owner-admin: 2
 
-#Sets the cooldown length for the cannon. If 0, uses the default horn cooldown.
+#Sets the cooldown length for the cannon in seconds. If 0, uses the default horn cooldown (7 seconds).
 cooldown-length: 3
 cooldown-length-admin: 3
 
@@ -72,6 +69,10 @@ cooldown-length-admin: 3
 custom-model-data: 350000
 custom-model-data-admin: 350001
 
-#Sets the sound file to play when the cannon is used. Must be an OGG file.
-fire-sound: fire.ogg
-fire-sound-admin: fire-admin.ogg
+#Sets the sound file to play when the cannon is used. Must be an in-game sound.
+fire-sound: ENTITY_FIREWORK_ROCKET_BLAST
+fire-sound-admin: ENTITY_FIREWORK_ROCKET_LARGE_BLAST
+
+#Choose whether to keep the original horn sound when using cannon.
+keep-horn-sound: false
+keep-horn-sound-admin: false
