@@ -4,8 +4,10 @@ import moikheck.GoatHornCannon;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,12 @@ public class GoatHornAdminCannonItem {
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&cGoat Horn Cannon"));
         itemMeta.setLore(lore);
-        itemMeta.setCustomModelData(Integer.parseInt(Objects.requireNonNull(main.getConfig().getString("custom-model-data-admin"))));
+        String namespace = plugin.getConfig().getString("namespace-admin");
+        if (!namespace.equalsIgnoreCase("none")) {
+            String key = plugin.getConfig().getString("custom-model-data-admin");
+            NamespacedKey namespacedKey = new NamespacedKey(namespace, key);
+            itemMeta.setItemModel(namespacedKey);
+        }
         horn.setItemMeta(itemMeta);
     }
 }

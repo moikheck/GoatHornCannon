@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.List;
 import java.util.Objects;
 
 public class RightClickListener implements Listener {
@@ -54,6 +55,16 @@ public class RightClickListener implements Listener {
         if (isAdminHorn && !p.hasPermission("goathorncannon.admin.use") && usesAdminPermissions) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to use this."));
+            return;
+        }
+
+        List<String> disabledWorlds = main.getConfig().getStringList("disabled-worlds");
+        if (isNormalHorn && disabledWorlds.contains(p.getWorld().getName())) {
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cGoat horn cannons are disabled in this world."));
+            return;
+        }
+        if (isAdminHorn && disabledWorlds.contains(p.getWorld().getName())) {
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cGoat horn cannons are disabled in this world."));
             return;
         }
 
